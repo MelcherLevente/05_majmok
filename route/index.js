@@ -1,6 +1,7 @@
 const getMonkeysMW = require('../middleware/monkey/getMonkeys');
 const getMonkeyMW = require('../middleware/monkey/getMonkey');
 const createMonkeyMW = require('../middleware/monkey/createMonkey');
+const deleteMonkeyBananasMW = require('../middleware/monkey/deleteMonkeyBananas');
 const deleteMonkeyMW = require('../middleware/monkey/deleteMonkey');
 const updateMonkeyMW = require('../middleware/monkey/updateMonkey');
 const getBananasMW = require('../middleware/banana/getBananas');
@@ -177,16 +178,16 @@ function addRoutes(app){
         next();
     }
 
-    const deleteMonkeyBananas = (req, res, next) => {
-        const monkeyID = monkeys[res.locals.monkeyIndex].id;
-        bananas = bananas.filter(b => b.monkeyId !== monkeyID);
-        next();
-    };
+    // const deleteMonkeyBananas = (req, res, next) => {
+    //     const monkeyID = monkeys[res.locals.monkeyIndex].id;
+    //     bananas = bananas.filter(b => b.monkeyId !== monkeyID);
+    //     next();
+    // };
 
     app.get('/', getMonkeysMW(objRep));
     app.post('/monkey', createMonkeyMW(objRep));
-    app.get('/monkey/:id', getMonkeyMW(objRep));
-    app.delete('/monkey/:id', getMonkeyMW(objRep), deleteMonkeyBananas, deleteMonkeyMW(objRep));
+    app.get('/monkey/:id', getMonkeyMW(objRep),  (req, res, next)=> res.json(res.locals.monkey));
+    app.delete('/monkey/:id', getMonkeyMW(objRep), deleteMonkeyBananasMW(objRep), deleteMonkeyMW(objRep));
     app.patch('/monkey/:id', getMonkeyMW(objRep), updateMonkeyMW(objRep));
 
     app.get('/banana', getBananas); // Minden banán
