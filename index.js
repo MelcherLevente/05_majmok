@@ -1,24 +1,28 @@
 require('dotenv').config();
 const express = require('express')
+const { initDatabase } = require('./service/db');
 const app = express()                       
 const port = process.env.PORT || 3000;
 const addRoutes = require('./route');
 
 app.use(express.json());                    
 
-addRoutes(app);
 
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        return next();   // hadd válaszoljon rá az Express magától
+initDatabase((err, result) => {
+    if(err){
+        return console.error(err);
     }
-    res.status(404).json({
-        error: 'Not found',
-        method: req.method,
-        path: req.originalUrl
-    });
-});
+    const { db, monkeysModel, bananasModel } = result;
 
-app.listen(port, function () { 
-    console.log(`Server running on http://localhost:${port}`);
+    addRoutes(app, db, monkeysModel, bananasModel);
+
+    app.use((req, res, next) => {
+        return res.status(404).json({
+            error: `Endpoint or method not found: ${req.method} ${req.originalUrl}`
+        });
+    });
+
+    app.listen(port, function () { 
+        console.log(`Server running on http://localhost:${port}`);
+    });
 });

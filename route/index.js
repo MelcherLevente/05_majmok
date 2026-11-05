@@ -12,7 +12,7 @@ const deleteBananaMW = require('../middleware/banana/deleteBanana');
 const updateBananaMW = require('../middleware/banana/updateBanana');
 const checkMonkeyIdMW = require('../middleware/banana/checkMonkeyId');
 
-function addRoutes(app){ 
+function addRoutes(app, db, monkeysModel, bananasModel) { 
     const monkeys = [
     {
         id: 1,
@@ -64,8 +64,11 @@ function addRoutes(app){
     const objRep = {
         monkeys,
         bananas,
+        monkeysModel,
+        bananasModel,
         nextMonkeyId: 4,
-        nextBananaId: 5
+        nextBananaId: 5,
+        db
     }
 
     app.get('/monkey', getMonkeysMW(objRep), (req, res, next)=> res.json(res.locals.monkeys));
