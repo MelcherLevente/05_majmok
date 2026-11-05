@@ -184,7 +184,7 @@ function addRoutes(app){
     //     next();
     // };
 
-    app.get('/', getMonkeysMW(objRep));
+    app.get('/monkey', getMonkeysMW(objRep));
     app.post('/monkey', createMonkeyMW(objRep));
     app.get('/monkey/:id', getMonkeyMW(objRep),  (req, res, next)=> res.json(res.locals.monkey));
     app.delete('/monkey/:id', getMonkeyMW(objRep), deleteMonkeyBananasMW(objRep), deleteMonkeyMW(objRep));
