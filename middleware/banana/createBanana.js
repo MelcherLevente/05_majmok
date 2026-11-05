@@ -7,10 +7,12 @@ module.exports = (objRep) => {
         const newBanana = {
             id: objRep.nextBananaId,
             color: req.body.color,
-            sweet: req.body.sweet
+            sweet: req.body.sweet,
+            monkeyId: req.body.monkeyId
         }
         bananas.push(newBanana);
-        objRep.nextId++;
-        return res.status(201).json(newBanana)
+        objRep.nextBananaId++;
+        res.locals.banana = newBanana;
+        return next();
     }
 }
