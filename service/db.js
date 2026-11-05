@@ -17,7 +17,7 @@ function initDatabase(cb){
         }
         
         db.saveDatabase(err => {
-            return cb(err, {db, monkeys: monkeysModel, bananas: bananasModel});
+            return cb(err, {db, monkeysModel, bananasModel});
         });
     });
 }

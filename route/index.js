@@ -1,3 +1,5 @@
+const uuid = require('uuid');
+
 const getMonkeysMW = require('../middleware/monkey/getMonkeys');
 const getMonkeyMW = require('../middleware/monkey/getMonkey');
 const createMonkeyMW = require('../middleware/monkey/createMonkey');
@@ -62,13 +64,12 @@ function addRoutes(app, db, monkeysModel, bananasModel) {
     ]
 
     const objRep = {
-        monkeys,
         bananas,
         monkeysModel,
         bananasModel,
-        nextMonkeyId: 4,
         nextBananaId: 5,
-        db
+        db,
+        uuid
     }
 
     app.get('/monkey', getMonkeysMW(objRep), (req, res, next)=> res.json(res.locals.monkeys));
