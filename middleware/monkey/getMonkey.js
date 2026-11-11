@@ -1,8 +1,7 @@
 module.exports = (objRep) => {
-    const { monkeys } = objRep;
+    const { monkeysModel } = objRep;
     return (req, res, next) => {
-        const monkeyIdAsNumber = parseInt(req.params.id, 10);
-        const monkey = monkeys.find(e => e.id === monkeyIdAsNumber);
+        const monkey = monkeysModel.findOne({ id: req.params.id });
         if (!monkey) {
             return res.status(404).json({ error: `Monkey not found with id: ${req.params.id}` });
         }

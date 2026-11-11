@@ -15,28 +15,6 @@ const updateBananaMW = require('../middleware/banana/updateBanana');
 const checkMonkeyIdMW = require('../middleware/banana/checkMonkeyId');
 
 function addRoutes(app, db, monkeysModel, bananasModel) { 
-    const monkeys = [
-    {
-        id: 1,
-        name: 'Joe',
-        sex: 'male',
-        species: 'gibbon'
-
-    },
-    {
-        id: 2,
-        name: 'Josephine',
-        sex: 'female',
-        species: 'gorilla'
-    },
-    {
-        id: 3,
-        name: 'Lajos',
-        sex: 'male',
-        species: 'orangutan'
-    }
-    ]
-
     let bananas = [
         {
             id: 1,

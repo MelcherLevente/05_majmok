@@ -1,9 +1,13 @@
 module.exports = (objRep) => {
-    const { monkeys } = objRep;
+    const { monkeysModel, db } = objRep;
 
     return (req, res, next) => {
-        const index = monkeys.indexOf(res.locals.monkey);
-        monkeys.splice(index, 1);
-        return next();
+        monkeysModel.remove(res.locals.monkey);
+        db.saveDatabase(err => {
+            if (err) {
+                return next(err);
+            }
+            return next();
+        });
     };
 };
