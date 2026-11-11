@@ -1,13 +1,8 @@
 module.exports = (objRep) => {
-    const { bananas } = objRep;
+    const { bananasModel, db } = objRep;
 
     return (req, res, next) => {
-        bananas.forEach(banana => {
-            if (banana.monkeyId === res.locals.monkey.id) {
-                banana.monkeyId = null;
-            }
-        });
-
+        bananasModel.findAndRemove({ monkeyId: res.locals.monkey.id });
         return next();
     };
 };
