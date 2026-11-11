@@ -42,6 +42,13 @@ function addRoutes(app, db, monkeysModel, bananasModel) {
         getMonkeysMW(objRep),
         getBananasMW(objRep),
         renderMW(objRep, 'monkeys'))
+
+    app.get('/newmonkey',
+        renderMW(objRep, 'monkeyform'));
+    app.post('/newmonkey',
+        createMonkeyMW(objRep),
+        (req, res, next) => res.redirect('/monkeys'));
+
 }
 
 module.exports = addRoutes;
