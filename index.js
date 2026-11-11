@@ -7,6 +7,7 @@ const addRoutes = require('./route');
 
 app.use(express.json());                    
 
+app.set('view engine', 'ejs');
 
 initDatabase((err, result) => {
     if(err){

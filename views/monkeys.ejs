@@ -1,0 +1,37 @@
+<%- include('header') %>
+    <h2>Majmok</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Sex</th>
+                <th>Species</th>
+                <th>Bananas</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% monkeys.forEach(m=> { %>
+                <tr>
+                    <td>
+                        <%= m.name %>
+                    </td>
+                    <td>
+                        <%= m.sex %>
+                    </td>
+                    <td>
+                        <%= m.species %>
+                    </td>
+                    <td>
+                        <%= bananas.filter(b=> b.monkeyId === m.id).length %>
+                    </td>
+                    <td>
+                        <a href="/editmonkey/<%= m.id %>" class="btn btn-primary btn-sm m-1">Edit</a>
+                        <a href="/deletemonkey/<%= m.id %>" class="btn btn-danger btn-sm m-1">Delete</a>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/newmonkey">New Monkey</a>
+<%- include('footer') %>
