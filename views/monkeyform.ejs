@@ -1,24 +1,31 @@
 <%- include('header') %>
-    <h2>New monkey</h2>
-    <form method="POST">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" />
-        </div>
-        <div class="mb-3">
-            <label for="sex" class="form-label">Sex</label>
-            <select class="form-select" id="sex" name="sex">
-                <option value="male">male</option>
-                <option value="female">female</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="species" class="form-label">Species</label>
-            <input type="text" class="form-control" id="species" name="species" />
-        </div>
-        <div class="d-flex gap-2">
-            <input type="submit" class="btn btn-primary flex-fill" value="Save" />
-            <a href="/monkeys" class="btn btn-warning flex-fill">Cancel</a>
-        </div>
-    </form>
+    <% const isEdit=typeof monkey !=='undefined' ; %>
+        <h2>
+            <%= isEdit ? 'Edit monkey' : 'New monkey' %>
+        </h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name"
+                    value="<%= isEdit ? monkey.name : '' %>" />
+            </div>
+            <div class="mb-3">
+                <label for="sex" class="form-label">Sex</label>
+                <select class="form-select" id="sex" name="sex">
+                    <% ['male', 'female' ].forEach(s=> { %>
+                        <option value="<%= s %>" <%=isEdit && monkey.sex===s ? 'selected' : '' %>><%= s %>
+                        </option>
+                        <% }) %>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="species" class="form-label">Species</label>
+                <input type="text" class="form-control" id="species" name="species"
+                    value="<%= isEdit ? monkey.species : '' %>" />
+            </div>
+            <div class="d-flex gap-2">
+                <input type="submit" class="btn btn-primary flex-fill" value="Save" />
+                <a href="/monkeys" class="btn btn-warning flex-fill">Cancel</a>
+            </div>
+        </form>
 <%- include('footer') %>
