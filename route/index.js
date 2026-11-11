@@ -56,6 +56,13 @@ function addRoutes(app, db, monkeysModel, bananasModel) {
         getMonkeyMW(objRep),
         updateMonkeyMW(objRep),
         (req, res, next) => res.redirect('/monkeys'));
+
+    app.get('/deletemonkey/:id',
+        getMonkeyMW(objRep),
+        deleteMonkeyBananasMW(objRep),
+        deleteMonkeyMW(objRep),
+        (req, res, next) => res.redirect('/monkeys'));
+
 }
 
 module.exports = addRoutes;
