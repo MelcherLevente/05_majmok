@@ -1,0 +1,34 @@
+<%- include('header') %>
+    <h2>Banánok</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Color</th>
+                <th>Sweet</th>
+                <th>Owner</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% bananas.forEach(b=> { %>
+                <% const owner=monkeys.find(m=> m.id === b.monkeyId); %>
+                    <tr>
+                        <td>
+                            <%= b.color %>
+                        </td>
+                        <td>
+                            <%= b.sweet ? 'yes' : 'no' %>
+                        </td>
+                        <td>
+                            <%= owner ? owner.name : '-' %>
+                        </td>
+                        <td>
+                            <a href="/editbanana/<%= b.id %>" class="btn btn-primary btn-sm m-1">Edit</a>
+                            <a href="/deletebanana/<%= b.id %>" class="btn btn-danger btn-sm m-1">Delete</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/newbanana">New Banana</a>
+<%- include('footer') %>

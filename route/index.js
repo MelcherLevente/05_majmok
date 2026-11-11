@@ -15,6 +15,7 @@ const updateBananaMW = require('../middleware/banana/updateBanana');
 const checkMonkeyIdMW = require('../middleware/banana/checkMonkeyId');
 
 const renderMW = require('../middleware/render');
+const parseBananaFormMW = require('../middleware/banana/parseBananaForm');
 
 function addRoutes(app, db, monkeysModel, bananasModel) {
     const objRep = {
@@ -63,6 +64,34 @@ function addRoutes(app, db, monkeysModel, bananasModel) {
         deleteMonkeyMW(objRep),
         (req, res, next) => res.redirect('/monkeys'));
 
+    app.get('/bananas',
+        getBananasMW(objRep),
+        getMonkeysMW(objRep),
+        renderMW(objRep, 'bananas'));
+
+    app.get('/newbanana',
+        getMonkeysMW(objRep),
+        renderMW(objRep, 'bananaform'));
+    app.post('/newbanana',
+        parseBananaFormMW(objRep),
+        checkMonkeyIdMW(objRep),
+        createBananaMW(objRep),
+        (req, res, next) => res.redirect('/bananas'));
+    app.get('/editbanana/:id',
+        getBananaMW(objRep),
+        getMonkeysMW(objRep),
+        renderMW(objRep, 'bananaform'));
+    app.post('/editbanana/:id',
+        getBananaMW(objRep),
+        parseBananaFormMW(objRep),
+        checkMonkeyIdMW(objRep),
+        updateBananaMW(objRep),
+        (req, res, next) => res.redirect('/bananas'));
+
+    app.get('/deletebanana/:id',
+        getBananaMW(objRep),
+        deleteBananaMW(objRep),
+        (req, res, next) => res.redirect('/bananas'));
 }
 
 module.exports = addRoutes;
