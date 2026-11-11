@@ -1,6 +1,7 @@
 module.exports = (objRep) => {
     const { bananasModel, db } = objRep;
     return (req, res, next) => {
+        const banana = res.locals.banana;
         if (typeof req.body.color !== 'undefined') {
             banana.color = req.body.color;
         }
