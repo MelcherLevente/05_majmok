@@ -22,17 +22,17 @@ function addRoutes(app, db, monkeysModel, bananasModel) {
         uuid
     }
 
-    app.get('/monkey', getMonkeysMW(objRep), (req, res, next)=> res.json(res.locals.monkeys));
-    app.post('/monkey', createMonkeyMW(objRep), (req, res, next) => res.status(201).json(res.locals.monkey));
-    app.get('/monkey/:id', getMonkeyMW(objRep),  (req, res, next)=> res.json(res.locals.monkey));
-    app.delete('/monkey/:id', getMonkeyMW(objRep),deleteMonkeyBananasMW(objRep), deleteMonkeyMW(objRep), (req, res, next) => res.json(res.locals.monkey));    
-    app.patch('/monkey/:id', getMonkeyMW(objRep), updateMonkeyMW(objRep), (req, res, next)=> res.json(res.locals.monkey));
+    app.get('/api/monkey', getMonkeysMW(objRep), (req, res, next)=> res.status(200).json(res.locals.monkeys));
+    app.post('/api/monkey', createMonkeyMW(objRep), (req, res, next) => res.status(201).json(res.locals.monkey));
+    app.get('/api/monkey/:id', getMonkeyMW(objRep),  (req, res, next)=> res.status(200).json(res.locals.monkey));
+    app.delete('/api/monkey/:id', getMonkeyMW(objRep),deleteMonkeyBananasMW(objRep), deleteMonkeyMW(objRep), (req, res, next) => res.status(200).json(res.locals.monkey));    
+    app.patch('/api/monkey/:id', getMonkeyMW(objRep), updateMonkeyMW(objRep), (req, res, next)=> res.status(200).json(res.locals.monkey));
 
-    app.get('/banana', getBananasMW(objRep), (req, res, next)=> res.json(res.locals.bananas)); // Minden banán
-    app.post('/banana', checkMonkeyIdMW(objRep), createBananaMW(objRep), (req, res, next) => res.status(201).json(res.locals.banana));
-    app.get('/banana/:id', getBananaMW(objRep), (req, res, next) => res.json(res.locals.banana));
-    app.delete('/banana/:id', getBananaMW(objRep), deleteBananaMW(objRep), (req, res, next) => res.json(res.locals.banana));
-    app.patch('/banana/:id', getBananaMW(objRep), checkMonkeyIdMW(objRep), updateBananaMW(objRep), (req, res, next) => res.json(res.locals.banana));
+    app.get('/api/banana', getBananasMW(objRep), (req, res, next)=> res.status(200).json(res.locals.bananas)); // Minden banán
+    app.post('/api/banana', checkMonkeyIdMW(objRep), createBananaMW(objRep), (req, res, next) => res.status(201).json(res.locals.banana));
+    app.get('/api/banana/:id', getBananaMW(objRep), (req, res, next) => res.status(200).json(res.locals.banana));
+    app.delete('/api/banana/:id', getBananaMW(objRep), deleteBananaMW(objRep), (req, res, next) => res.status(200).json(res.locals.banana));
+    app.patch('/api/banana/:id', getBananaMW(objRep), checkMonkeyIdMW(objRep), updateBananaMW(objRep), (req, res, next) => res.status(200).json(res.locals.banana));
 }
 
 module.exports = addRoutes;
